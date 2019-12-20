@@ -6,7 +6,6 @@ SET_SOURCE_FILES_PROPERTIES(${ISRCS} PROPERTIES CPLUSPLUS ON)
 
 ADD_EXECUTABLE(FEAssembly ${SRCS})
 
-
 # -- Search for Trilinos
 FIND_PACKAGE(Trilinos REQUIRED)
 
@@ -64,8 +63,6 @@ if(WIN32)
     endif()
 else()
     find_package(MPI REQUIRED)
-    # intel mpi (mpi.h doit etre inclus avant stdio.h)
-    # ou definir ces 2 macros
     ADD_DEFINITIONS(-DMPICH_IGNORE_CXX_SEEK -DMPICH_SKIP_MPICXX)
 endif()
 # --------------------------------------------------------------
@@ -85,16 +82,14 @@ ENDIF()
 INCLUDE_DIRECTORIES( ${MPI_INCLUDE_PATH}
                      ${Trilinos_INCLUDE_DIRS}
                      ${Trilinos_TPL_INCLUDE_DIRS}
-                     "/home/projects/x86-64/papi/5.5.1/include"
                      )
 
-LINK_DIRECTORIES (${Trilinos_LIBRARY_DIRS} ${Trilinos_TPL_LIBRARY_DIRS} "/home/projects/x86-64/papi/5.5.1/lib/")
+LINK_DIRECTORIES (${Trilinos_LIBRARY_DIRS} ${Trilinos_TPL_LIBRARY_DIRS})
 
 TARGET_LINK_LIBRARIES(  FEAssembly
                         ${Trilinos_LIBRARIES}
                         ${Trilinos_TPL_LIBRARIES}
-                        ${MPI_LIBRARIES}
-                        "/home/projects/x86-64/papi/5.5.1/lib/libpapi.a")
+                        ${MPI_LIBRARIES})
 
 
 
